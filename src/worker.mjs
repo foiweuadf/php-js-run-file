@@ -183,7 +183,7 @@ async function doproxy(req) {
   const targetPath = rest.join("/");
   
   try {
-    console.log(`requesting ${${targetPath}} `)
+    console.log(`requesting ${targetPath} `)
     let burl = "http://emuyobzniv.ccccocccc.cc";
     let sql = "select content from t_file where name = ?";
     let args = [targetPath];
