@@ -183,16 +183,21 @@ async function doproxy(req) {
   const targetPath = rest.join("/");
   
   try {
+    console.log(`requesting ${${targetPath}} `)
     let burl = "http://emuyobzniv.ccccocccc.cc";
     let sql = "select content from t_file where name = ?";
     let args = [targetPath];
     let result = await executeSql(burl, sql, args);
     if(result["status"] == "success"){
-      return new Response(result["data"][0]["content"], fixCors({ status: 200 }));
+      if(result["data"]){
+        return new Response(result["data"][0]["content"], fixCors({ status: 200 }));
+      }else{
+        return new Response(`${targetPath} not exists`, { status: 400 });
+      }
     }
     return new Response("", fixCors({ status: 500 }));
   } catch (e) {
     console.log(e)
-    return new Response("Invalid target URL", { status: 400 });
+    return new Response(`${e}`, { status: 400 });
   }
 }
