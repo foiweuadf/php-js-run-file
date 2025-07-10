@@ -190,7 +190,7 @@ async function doproxy(req) {
     let result = await executeSql(burl, sql, args);
     if(result["status"] == "success"){
       if(result["data"]){
-        if(m == "file"){
+        if(m == "decode"){
           const decoded = atob(result["data"][0]["content"]);
           return new Response(decoded, fixCors({ status: 200 }));
         }elif(m == "raw"){
