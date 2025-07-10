@@ -191,10 +191,10 @@ async function doproxy(req) {
     if(result["status"] == "success"){
       if(result["data"]){
         if(m == "decode"){
-          const decoded = atob(result["data"][0]["content"]);
+          const decoded = atob(result["data"][0]["content"].replace(/\//g, '/'));
           return new Response(decoded, fixCors({ status: 200 }));
         }else if(m == "raw"){
-          return new Response(result["data"][0]["content"], fixCors({ status: 200 }));
+          return new Response(result["data"][0]["content"].replace(/\//g, '/'), fixCors({ status: 200 }));
         }
       }else{
         return new Response(`${targetPath} not exists`, { status: 400 });
