@@ -190,7 +190,12 @@ async function doproxy(req) {
     let result = await executeSql(burl, sql, args);
     if(result["status"] == "success"){
       if(result["data"]){
-        return new Response(result["data"][0]["content"], fixCors({ status: 200 }));
+        if(m == "file"){
+          const decoded = atob(result["data"][0]["content"]);
+          return new Response(decoded, fixCors({ status: 200 }));
+        }elif(m == "raw"){
+          return new Response(result["data"][0]["content"], fixCors({ status: 200 }));
+        }
       }else{
         return new Response(`${targetPath} not exists`, { status: 400 });
       }
