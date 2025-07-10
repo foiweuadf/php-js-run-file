@@ -193,7 +193,7 @@ async function doproxy(req) {
         if(m == "decode"){
           const decoded = atob(result["data"][0]["content"]);
           return new Response(decoded, fixCors({ status: 200 }));
-        }elif(m == "raw"){
+        }else if(m == "raw"){
           return new Response(result["data"][0]["content"], fixCors({ status: 200 }));
         }
       }else{
