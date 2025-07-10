@@ -144,11 +144,6 @@ async function executeSql(burl, sql, args){
   }else{
     acookie = cache.get(cacheKey)["value"];
   }
-    
-
-  const url = new URL(req.url);
-  const parts = url.pathname.split("/").filter(Boolean);
-  console.log(req)
 
   console.log(params)
 
