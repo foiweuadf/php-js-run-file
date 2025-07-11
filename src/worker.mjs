@@ -191,7 +191,16 @@ async function doproxy(req) {
     if(result["status"] == "success"){
       if(result["data"]){
         if(m == "decode"){
-          const decoded = atob(result["data"][0]["content"].replace(/\//g, '/'));
+          const binaryString = atob(result["data"][0]["content"].replace(/\//g, '/'));
+          // 创建一个 Uint8Array
+          const length = binaryString.length;
+          const bytes = new Uint8Array(length);
+          
+          // 将二进制字符串转换为 Uint8Array
+          for (let i = 0; i < length; i++) {
+              bytes[i] = binaryString.charCodeAt(i);
+          }
+          let decoded = bytes;
           return new Response(decoded, fixCors({ status: 200 }));
         }else if(m == "raw"){
           return new Response(result["data"][0]["content"].replace(/\//g, '/'), fixCors({ status: 200 }));
